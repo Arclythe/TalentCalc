@@ -41,9 +41,6 @@ int main(){
     checkInput(&qEnd);
 
     printf("\n");
-    
-
-   
 
     Booksset * naBooks = createBookSet();
     naBooks = evolve(naStart,naEnd);
@@ -80,10 +77,7 @@ int main(){
 
     printf("\n\n");
 
-    
-
     calculate(totalBooks,ownedBooks);
-
 
     printf("\n");
 
