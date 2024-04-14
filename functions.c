@@ -156,15 +156,18 @@ void calculate(Booksset * demandedBooks, Booksset * ownedBooks){
         
     } else {
         printf("alright, assuming you're converting all ** into *** first, then converting *** to ****,\ntill your **** book reached %d:\n\n",demandedBooks->epic);
-        if(!goldEnough){
-            printf("You'll need more %d of **** books left\n",demandedBooks->epic - ownedBooks->epic);
-        }
-        if(!silverEnough){
-            printf("You'll need more %d of *** books left\n",demandedBooks->rare - ownedBooks->rare);
-        }
+
         if(!bronzeEnough){
-            printf("You'll need more %d of ** books left\n",demandedBooks->common - ownedBooks->common);
+            printf("You'll need %d more of ** books left\n",demandedBooks->common - ownedBooks->common);
         }
+
+        if(!silverEnough){
+            printf("You'll need %d more of *** books left\n",demandedBooks->rare - ownedBooks->rare);
+        }
+        if(!goldEnough){
+            printf("You'll need %d more of **** books left\n",demandedBooks->epic - ownedBooks->epic);
+        }
+       
 
         printf("\n");
 

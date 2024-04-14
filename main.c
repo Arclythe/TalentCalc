@@ -70,6 +70,7 @@ int main(){
     printf("\n\n");
 
     Booksset * ownedBooks = createBookSet();
+    
     printf("Enter how many books do you have (2 star): ");
     scanf("%d",&ownedBooks->common);
     printf("Enter how many books do you have (3 star): ");
