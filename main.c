@@ -85,6 +85,14 @@ int main(){
 
         printf("\n\n\n\n\n");
 
+        //resets memory
+        free(naBooks);
+        free(eBooks);
+        free(qBooks);
+        free(totalBooks);
+        free(ownedBooks);
+
+
         printf("Press any key to restart...");
         getch();
 

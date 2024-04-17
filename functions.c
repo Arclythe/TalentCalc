@@ -99,7 +99,10 @@ void subtract(Booksset * totalBooks, Booksset * ownedBooks){
 
 static uint16_t convertTillLowerLim(uint16_t * lowerGrade, uint16_t * higherGrade, uint16_t lowGradeLimit){
     uint16_t conversionCount = 0;
-    while(*lowerGrade >= 3 && *lowerGrade > lowGradeLimit){
+    while(1){
+        if(*lowerGrade < 3 || *lowerGrade - 3 < lowGradeLimit){
+            return conversionCount;
+        }
         *lowerGrade -=3;
         *higherGrade +=1;
         conversionCount++;
@@ -109,7 +112,10 @@ static uint16_t convertTillLowerLim(uint16_t * lowerGrade, uint16_t * higherGrad
 
 static uint16_t convertTillUpperLim(uint16_t * lowerGrade, uint16_t * higherGrade, uint16_t highGradeLimit){
     uint16_t conversionCount = 0;
-    while(*lowerGrade >= 3 && *higherGrade < highGradeLimit){
+    while(1){
+        if(*lowerGrade < 3 || *higherGrade >= highGradeLimit){
+            return conversionCount;
+        }
         *lowerGrade -=3;
         *higherGrade +=1;
         conversionCount++;
@@ -117,7 +123,7 @@ static uint16_t convertTillUpperLim(uint16_t * lowerGrade, uint16_t * higherGrad
     return conversionCount;
 }
 
-static bool prognose (Booksset * demandedBooks, Booksset * ownedBooks, uint16_t * silversToMake, uint16_t * goldsToMake){
+static bool prognose(Booksset * demandedBooks, Booksset * ownedBooks, uint16_t * silversToMake, uint16_t * goldsToMake){
     *silversToMake = convertTillLowerLim(&ownedBooks->common, &ownedBooks->rare, demandedBooks->common);
     *goldsToMake = convertTillUpperLim(&ownedBooks->rare, &ownedBooks->epic, demandedBooks->epic);
 
@@ -128,7 +134,7 @@ static bool prognose (Booksset * demandedBooks, Booksset * ownedBooks, uint16_t 
     if(goldEnough && silverEnough && bronzeEnough){
         return true;
     }
-
+    
     return false;
 }
 
@@ -145,7 +151,7 @@ void calculate(Booksset * demandedBooks, Booksset * ownedBooks){
     bool silverEnough = ownedBooks->rare >= demandedBooks->rare;
     
 
-    if(goldEnough && silverEnough && bronzeEnough){
+    if(result){
         printf("Congratulations! No need farm more!\n");
         if(demandedBooks->rare - ownedBooks->rare >= 0){
             printf("You'd need to convert bronze->silver books %d times\n",silversToMake);
@@ -153,6 +159,10 @@ void calculate(Booksset * demandedBooks, Booksset * ownedBooks){
         if(demandedBooks->epic - ownedBooks->epic >= 0){
             printf("You'd need to make silver->gold books %d times\n",goldsToMake);
         }
+        printf("After that you'd have the following books remaining:\n");
+        printf("2 Star Book: %d\n",ownedBooks->common - demandedBooks->common);
+        printf("3 Star Book: %d\n",ownedBooks->rare - demandedBooks->rare);
+        printf("4 Star Book: %d\n",ownedBooks->epic - demandedBooks->epic);
         
     } else {
         printf("alright, assuming you're converting all ** into *** first, then converting *** to ****,\ntill your **** book reached %d:\n\n",demandedBooks->epic);
