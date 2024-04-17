@@ -145,20 +145,20 @@ void calculate(Booksset * demandedBooks, Booksset * ownedBooks){
 
     bool result = prognose(demandedBooks, ownedBooks, &silversToMake, &goldsToMake);
     
-
     bool bronzeEnough = ownedBooks->common >= demandedBooks->common;
     bool goldEnough = ownedBooks->epic >= demandedBooks->epic;
     bool silverEnough = ownedBooks->rare >= demandedBooks->rare;
     
 
     if(result){
-        printf("Congratulations! No need farm more!\n");
-        if(demandedBooks->rare - ownedBooks->rare >= 0){
+        printf("Congratulations! No need farm more!\n\n");
+        if(silversToMake != 0){
             printf("You'd need to convert bronze->silver books %d times\n",silversToMake);
         }
-        if(demandedBooks->epic - ownedBooks->epic >= 0){
+        if(goldsToMake != 0){
             printf("You'd need to make silver->gold books %d times\n",goldsToMake);
         }
+        printf("\n");
         printf("After that you'd have the following books remaining:\n");
         printf("2 Star Book: %d\n",ownedBooks->common - demandedBooks->common);
         printf("3 Star Book: %d\n",ownedBooks->rare - demandedBooks->rare);
@@ -170,7 +170,6 @@ void calculate(Booksset * demandedBooks, Booksset * ownedBooks){
         if(!bronzeEnough){
             printf("You'll need %d more of ** books left\n",demandedBooks->common - ownedBooks->common);
         }
-
         if(!silverEnough){
             printf("You'll need %d more of *** books left\n",demandedBooks->rare - ownedBooks->rare);
         }
